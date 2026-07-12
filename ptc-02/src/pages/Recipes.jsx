@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { useContext } from "react";
+import { recipeContext } from "../context/RecipeContext";
+import RecipeCard from "../components/RecipeCard";
 
 const Recipes = () => {
-  return (
-    <div>Recipes</div>
-  )
-}
+  const { data } = useContext(recipeContext);
 
-export default Recipes
+  const renderrecipes = data.map((recipe) => (
+    <RecipeCard key={recipe.id} recipe={recipe} />
+  ));
+
+  return (
+    <div className="flex flex-wrap justify-center  gap-5 mt-15">
+      {data.length === 0 ? <p>No Recipes Found</p> : renderrecipes}
+    </div>
+  );
+};
+
+export default Recipes;

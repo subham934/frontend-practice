@@ -1,35 +1,35 @@
 import React, { useContext } from "react";
-import { useForm } from "react-hook-form";
-import { nanoid } from "nanoid";
+import { useNavigate, useParams } from "react-router";
 import { recipeContext } from "../context/RecipeContext";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
 
-const Create = () => {
-    const { data, setData } = useContext(recipeContext);
-    const navigate = useNavigate();
+const SingleRecipe = () => {
+  const { data, setData } = useContext(recipeContext);
+  const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm();
 
   const SubmitHandler = (recipe) => {
-      recipe.id = nanoid();
-      // console.log(recipe);
-      
-      // const copyData = [...data];
-      // copyData.push(recipe);
-      // setData(copyData);
-      
-      setData([...data, recipe]);
-      toast.success("Recipe Created Successfully")
-      reset();
 
-      navigate('/recipes')
   };
 
-  return (
-    <>
+  const { id } = useParams();
+
+  const recipe = data.find((recipe) => id == recipe.id);
+  console.log(recipe);
+  return recipe ? (
+    <div className="w-full flex mt-10">
+      <div className="left w-1/2 p-2">
+        <h1 className="text-5xl font-black mb-5">{recipe.title}</h1>
+        <img
+          className="h-[40vh] w-[23vw] rounded-2xl"
+          src={recipe.image}
+          alt={recipe.title}
+        />
+      </div>
+
       <form
         onSubmit={handleSubmit(SubmitHandler)}
-        className="flex flex-col gap-y-2"
+        className="w-1/2 border p-2 gap-y-2"
       >
         <input
           type="url"
@@ -83,8 +83,10 @@ const Create = () => {
           Create Recipe
         </button>
       </form>
-    </>
+    </div>
+  ) : (
+    "Loading..."
   );
 };
 
-export default Create;
+export default SingleRecipe;
