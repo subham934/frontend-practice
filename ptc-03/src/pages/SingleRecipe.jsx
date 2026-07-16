@@ -11,15 +11,15 @@ const SingleRecipe = () => {
   const recipe = data.find((recipe) => recipe.id == params.id);
 
   const { register, handleSubmit, reset } = useForm({
-    defaultValues:{
-     title: recipe.title,
-     image: recipe.image,
-     chef: recipe.chef,
-     description: recipe.description,
-     ingredients: recipe.ingredients,
-     instructions: recipe.instructions,
-     category: recipe.category,
-    }
+    defaultValues: {
+      title: recipe.title,
+      image: recipe.image,
+      chef: recipe.chef,
+      description: recipe.description,
+      ingredients: recipe.ingredients,
+      instructions: recipe.instructions,
+      category: recipe.category,
+    },
   });
   const SubmitHandler = (recipe) => {
     const index = data.findIndex((recipe) => recipe.id == params.id);
@@ -55,7 +55,6 @@ const SingleRecipe = () => {
           className="border-b outline-0 p-2 block"
           {...register("image")}
           type="url"
-         
           placeholder="Enter Image URL"
         />
         <small className="text-red-400">This is how the error is shown</small>
@@ -64,14 +63,12 @@ const SingleRecipe = () => {
           className="border-b outline-0 p-2 block"
           {...register("title")}
           type="text"
-         
           placeholder="Enter Title"
         />
         <input
           className="border-b outline-0 p-2 block"
           {...register("chef")}
           type="text"
-         
           placeholder="Chef's Name"
         />
 
