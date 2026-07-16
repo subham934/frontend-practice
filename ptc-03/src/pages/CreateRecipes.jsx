@@ -1,10 +1,13 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { nanoid } from "nanoid";
-import { RecipeContextProvider } from "../context/RecipeContext";
+import { recipeContext } from "../context/RecipeContext";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 const CreateRecipes = () => {
-  const { data, setData } = useContext(RecipeContextProvider);
+  const navigate = useNavigate();
+  const { data, setData } = useContext(recipeContext);
 
   const { register, handleSubmit, reset } = useForm();
   const SubmitHandler = (recipe) => {
@@ -15,8 +18,9 @@ const CreateRecipes = () => {
     // setData(copyData);
 
     setData([...data, recipe]);
-
+    toast.success("New Recipe Created!")
     reset();
+    navigate("/recipes")
   };
   return (
     <div>
@@ -64,9 +68,10 @@ const CreateRecipes = () => {
           className="border-b bg-gray-500 outline-0 p-2 block"
           {...register("category")}
         >
-          <option value="cat-1">Category 1</option>
-          <option value="cat-2">Category 2</option>
-          <option value="cat-3">Category 3</option>
+          <option value="breakfast">Breakfast</option>
+          <option value="lunch">Lunch</option>
+          <option value="snack">Snack</option>
+          <option value="dinner">Dinner</option>
         </select>
 
         <button className="block mt-5 bg-gray-800 px-4 py-2 rounded cursor-pointer text-white font-medium ">
