@@ -56,6 +56,18 @@ const Navbar = () => {
         >
           About
         </NavLink>
+        <NavLink
+          to="/fav"
+          className={({ isActive }) =>
+            `px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+              isActive
+                ? 'bg-amber-500/10 text-amber-700 border border-amber-500/20'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+            }`
+          }
+        >
+          Favorites
+        </NavLink>
       </div>
 
       {/* Desktop CTA / Action Button */}
@@ -135,6 +147,19 @@ const Navbar = () => {
             }
           >
             About
+          </NavLink>
+          <NavLink
+            to="/fav"
+            onClick={() => setIsOpen(false)}
+            className={({ isActive }) =>
+              `px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
+                isActive
+                  ? 'bg-amber-500/10 text-amber-700 border border-amber-500/20'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+              }`
+            }
+          >
+            Favorites
           </NavLink>
           <hr className="border-slate-100 my-1" />
           <NavLink
