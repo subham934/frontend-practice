@@ -31,10 +31,11 @@ const App = () => {
   const like = (id) => {
     setPostData((prev) =>
       prev.map((item) =>
-        item.id === id ? { ...item, likeCount: item.likeCount + 1 } : item,
+        item.id === id ? { ...item, likeCount: item.likeCount + 1} : item,
       ),
     );
   };
+
 
   const dislike = (id) => {
     setPostData((prev) =>
