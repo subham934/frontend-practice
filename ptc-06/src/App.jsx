@@ -1,25 +1,73 @@
-import React from "react";
-import Card from "./components/Card.jsx";
+import React, { useState } from "react";
+import Card from "./components/Card";
 
 const App = () => {
-  const persons = [
+  // const [val, setVal] = useState(0);
+  const [postData, setPostData] = useState([
     {
       id: 1,
-      name: "Anasthesia",
-      age: 20,
-      url: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      name: "Arjun Mehta",
+      desc: "Just deployed my first full-stack app 🚀 feels unreal!",
+      likeCount: 0,
     },
     {
-      id: 1,
-      name: "Polina",
-      age: 19,
-      url: "https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGZhc2hpb24lMjBtb2RlbHN8ZW58MHx8MHx8fDA%3D",
+      id: 2,
+      name: "Priya Sharma",
+      desc: "Golden hour at Bandra Worli Sea Link 🌅 Mumbai never disappoints.",
+      likeCount: 0,
     },
-  ];
+    {
+      id: 3,
+      name: "Kabir Singh",
+      desc: "Finally cracked the DSA round — hard work pays off 💪",
+      likeCount: 0,
+    },
+  ]);
+  // const changeVal = () => {
+  //   // setVal(val + 1)
+  //   setVal((previousValue) => previousValue + 1);
+  // };
+
+  const like = (id) => {
+    setPostData((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, likeCount: item.likeCount + 1 } : item,
+      ),
+    );
+  };
+
+  const dislike = (id) => {
+    setPostData((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, likeCount: item.likeCount === 0 ? 0: item.likeCount - 1 } : item,
+      ),
+    );
+  };
 
   return (
-    <div className="app">
-      <Card data={persons} status="follow" />
+    <div className="h-screen w-screen flex flex-col items-center bg-zinc-900">
+      {/* <h1 className="text-4xl mb-4 text-zinc-50 font-bold">{val}</h1>
+      <div className="flex gap-4">
+        <button
+          // onClick={() => {
+          //   setVal(val + 1);
+          // }}
+          onClick={changeVal}
+          className="px-8 py-3 rounded bg-blue-500 hover:bg-blue-700 active:scale-95 transition-all duration-300 cursor-pointer"
+        >
+          Increase Value
+        </button>
+        <button
+          onClick={() => {
+            setVal(val - 1);
+          }}
+          className="px-8 py-3 rounded bg-blue-500 hover:bg-blue-700 active:scale-95 transition-all duration-300 cursor-pointer"
+        >
+          Decrease Value
+        </button>
+      </div> */}
+
+      <Card postData={postData} like={like} dislike={dislike} />
     </div>
   );
 };
