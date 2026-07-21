@@ -4,33 +4,52 @@ import Card from "./components/Card";
 const App = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
+  const [editIndex, setEditIndex] = useState(null);
 
-const [postData, setPostData] = useState(
-  JSON.parse(localStorage.getItem("FormData")) || []
-);
+  const [postData, setPostData] = useState(
+    JSON.parse(localStorage.getItem("FormData")) || [],
+  );
 
-// Local storage me data save karne ke liye
-
+  // Local storage me data save karne ke liye
   useEffect(() => {
     localStorage.setItem("FormData", JSON.stringify(postData));
   }, [postData]);
 
-
-
   const submitHandler = (e) => {
     e.preventDefault();
-    const copyArr = [...postData];
-    copyArr.push({ title, desc });
-    setPostData(copyArr);
+
+    if (editIndex !== null) {
+      // Update existing post
+      const copyArr = [...postData];
+      copyArr[editIndex] = { title, desc };
+      setPostData(copyArr);
+      setEditIndex(null);
+    } else {
+      // Create new post
+      // const copyArr = [...postData];
+      // copyArr.push({ title, desc });
+      // setPostData(copyArr);
+
+      setPostData([...postData, { title, desc }]);
+    }
+
     setTitle("");
     setDesc("");
   };
 
   const deleteHandler = (idx) => {
-    const copyArr = [...postData];
-    copyArr.splice(idx, 1);
-    setPostData(copyArr);
-  }
+    setPostData(
+      postData.filter((item, index) => {
+        return index !== idx;
+      }),
+    );
+  };
+
+  const editHandler = (idx) => {
+    setTitle(postData[idx].title);
+    setDesc(postData[idx].desc);
+    setEditIndex(idx);
+  };
 
   return (
     <div className="w-full h-screen p-5 bg-gray-600">
@@ -56,11 +75,15 @@ const [postData, setPostData] = useState(
           type="submit"
           className="bg-blue-400 cursor-pointer hover:bg-blue-600 text-white font-black px-8 py-3 rounded-3xl"
         >
-          Create Post
+          {editIndex !== null ? "Update Post" : "Create Post"}
         </button>
       </form>
 
-      <Card postData={postData} deleteHandler={deleteHandler} />
+      <Card
+        postData={postData}
+        deleteHandler={deleteHandler}
+        editHandler={editHandler}
+      />
     </div>
   );
 };
