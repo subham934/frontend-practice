@@ -4,7 +4,7 @@ import {useForm} from "react-hook-form";
 const App = () => {
 
 
-  const {register, handleSubmit} = useForm();
+  const {register, handleSubmit, reset} = useForm();
 
   
 
@@ -24,6 +24,7 @@ const App = () => {
           {/* Form */}
           <form onSubmit={handleSubmit((e)=>{
             console.log(e)
+            reset()
           })} className="px-6 py-8 sm:px-10 space-y-5">
             {/* Full Name */}
             <div>
