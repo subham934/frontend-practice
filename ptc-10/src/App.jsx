@@ -1,14 +1,18 @@
-import React from "react";
-import {useForm} from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 const App = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-
-  const {register, handleSubmit, reset} = useForm();
-
-  
-
-
+  console.log(errors);
+  const handleFormSubmit = (e) => {
+    // console.log(e);
+    reset();
+  };
 
   return (
     <>
@@ -22,10 +26,10 @@ const App = () => {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit((e)=>{
-            console.log(e)
-            reset()
-          })} className="px-6 py-8 sm:px-10 space-y-5">
+          <form
+            onSubmit={handleSubmit(handleFormSubmit)}
+            className="px-6 py-8 sm:px-10 space-y-5"
+          >
             {/* Full Name */}
             <div>
               <label
@@ -35,7 +39,17 @@ const App = () => {
                 Full Name
               </label>
               <input
-              {...register('name')}
+                {...register("name", {
+                  required: "Name is required",
+                  minLength: {
+                    value: 3,
+                    message: "name must contain atleat 3 characters",
+                  },
+                  maxLength: {
+                    value: 16,
+                    message: "name must not contain more than 16 characters",
+                  },
+                })}
                 type="text"
                 id="fullName"
                 placeholder="John Doe"
@@ -43,6 +57,11 @@ const App = () => {
               outline-none
               transition-all duration-200"
               />
+              {errors.name && (
+                <span className="text-red-500 text-sm">
+                  {errors.name.message}
+                </span>
+              )}
             </div>
 
             {/* Email Address */}
@@ -54,12 +73,22 @@ const App = () => {
                 Email Address
               </label>
               <input
-              {...register('email')}
-                type="email"
+                {...register("email", {
+                  required: "email is required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "invalid email format",
+                  },
+                })}
                 id="email"
                 placeholder="john@example.com"
                 className="w-full px-4 py-2.5 bg-slate-800/60 border border-slate-700 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
               />
+              {errors.email && (
+                <span className="text-red-500 text-sm">
+                  {errors.email.message}
+                </span>
+              )}
             </div>
 
             {/* Phone Number */}
@@ -72,11 +101,30 @@ const App = () => {
               </label>
               <input
                 type="tel"
-                {...register('phone')}
+                {...register("phone", {
+                  required: "Phone number is required",
+                  minLength: {
+                    value: 10,
+                    message: "Minimum 10 digits are required",
+                  },
+                  maxLength: {
+                    value: 10,
+                    message: "Maximum 10 digits are allowed",
+                  },
+                  pattern: {
+                    value: /^[0-9]{10}$/,
+                    message: "invalid phone number",
+                  },
+                })}
                 id="phone"
                 placeholder="+1 (555) 000-0000"
                 className="w-full px-4 py-2.5 bg-slate-800/60 border border-slate-700 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200"
               />
+              {errors.phone && (
+                <span className="text-red-500 text-sm">
+                  {errors.phone.message}
+                </span>
+              )}
             </div>
 
             {/* Message */}
@@ -88,12 +136,27 @@ const App = () => {
                 Message
               </label>
               <textarea
-                {...register('message')}
+                {...register("message" , {
+                  required: "message is required",
+                  minLength: {
+                    value: 10,
+                    message: "Minimum 10 characters are required",
+                  },
+                  maxLength: {
+                    value: 1000,
+                    message: "Maximum 1000 characters are allowed",
+                  },
+                })}
                 id="message"
                 rows={4}
                 placeholder="How can we help you?"
                 className="w-full px-4 py-2.5 bg-slate-800/60 border border-slate-700 rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-200 resize-none"
               />
+              {errors.message && (
+                <span className="text-red-500 text-sm">
+                  {errors.message.message}
+                </span>
+              )}
             </div>
 
             {/* Submit Button */}
