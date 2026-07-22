@@ -17,9 +17,10 @@ const App = () => {
         <Route path='/' element={<Home/>}/>
         <Route path='/form' element={<Form/>}/>
         <Route path="/about" element={<About />} />
-        <Route path="/service" element={<Service />} />
+        <Route path="/service" element={<Service />} >
         <Route path="/service/mobile" element={<Mobile />} />
-        <Route path="/service/lappy" element={<Laptop />} />
+        <Route path="lappy" element={<Laptop />} />
+        </Route>
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
