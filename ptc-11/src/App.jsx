@@ -8,6 +8,8 @@ import Contact from './components/Contact'
 import Navbar from './components/Navbar'
 import Mobile from './components/Mobile'
 import Laptop from './components/Laptop'
+import Course from './components/Course'
+import CourseDetail from './components/CourseDetail'
 
 const App = () => {
   return (
@@ -22,6 +24,8 @@ const App = () => {
         <Route path="lappy" element={<Laptop />} />
         </Route>
         <Route path="/contact" element={<Contact />} />
+        <Route path="/course" element={<Course />} />
+        <Route path="/course/:id" element={<CourseDetail />} />
         <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>
     </div>
