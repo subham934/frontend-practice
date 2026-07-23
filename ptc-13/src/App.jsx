@@ -45,13 +45,13 @@ const App = () => {
       <div className="flex justify-center gap-3 mt-5">
         <button
           onClick={() => Page > 1 && setPage(Page - 1)}
-          className="bg-blue-500  px-5 font-black text-white py-1 rounded-xl"
+          className="bg-blue-500  px-5 font-black text-white py-1 rounded-xl cursor-pointer active:scale-95"
         >
           Prev
         </button>
         <button
           onClick={() => setPage(Page + 1)}
-          className="bg-green-500  px-5 font-black text-white py-1 rounded-xl"
+          className="bg-green-500  px-5 font-black text-white py-1 rounded-xl cursor-pointer active:scale-95"
         >
           Next
         </button>
